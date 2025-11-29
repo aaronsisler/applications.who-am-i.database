@@ -50,7 +50,12 @@ CREATE DATABASE :dbname OWNER :db_creator;
 \c :dbname :db_creator
 
 -- ======================================================
--- 5. Create the schema (which will be owned by IDE user)
+-- 5. Install required extensions
+-- ======================================================
+\i extensions/10_uuid_extension.sql
+
+-- ======================================================
+-- 6. Create the schema (which will be owned by IDE user)
 -- ======================================================
 
 \i schemas/10_auth_schema.sql
@@ -59,7 +64,7 @@ CREATE DATABASE :dbname OWNER :db_creator;
 ALTER SCHEMA auth OWNER TO :ide_user;
 
 -- ======================================================
--- 6. Create tables using IDE user as owner
+-- 7. Create tables using IDE user as owner
 -- ======================================================
 SET ROLE :ide_user;
 
@@ -68,7 +73,7 @@ SET ROLE :ide_user;
 RESET ROLE;
 
 -- ======================================================
--- 7. Grant privileges to the app user (runtime)
+-- 8. Grant privileges to the app user (runtime)
 -- ======================================================
 SET ROLE :ide_user;
 
