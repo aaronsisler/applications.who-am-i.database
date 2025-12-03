@@ -3,7 +3,7 @@
 */
 CREATE TABLE IF NOT EXISTS auth.app_user (
   id bigint primary key generated always as identity,
-  user_id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  user_id uuid NOT NULL,
   email_address varchar(100) NOT NULL,
   first_name varchar(45) NOT NULL,
   last_name varchar(45) NOT NULL,
@@ -11,8 +11,6 @@ CREATE TABLE IF NOT EXISTS auth.app_user (
   -- Audit fields
   created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  created_by varchar(100),
-  updated_by varchar(100),
 
   CONSTRAINT uq_app_user_user_id UNIQUE (user_id),
   CONSTRAINT uq_app_user_email UNIQUE (email_address),

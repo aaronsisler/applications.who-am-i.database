@@ -52,7 +52,8 @@ CREATE DATABASE :dbname OWNER :db_creator;
 -- ======================================================
 -- 5. Install required extensions
 -- ======================================================
-\i extensions/10_uuid_extension.sql
+
+-- Currently none required
 
 -- ======================================================
 -- 6. Create the schema (which will be owned by IDE user)
