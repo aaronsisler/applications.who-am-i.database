@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ebsolutions.applications.whoami</groupId>
+    <artifactId>who-am-i-database</artifactId>
+    <version>${revision}</version>
+    <name>Who Am I Database</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <revision>0.1.0</revision>
+
+        <!-- Versions: Plugins -->
+        <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
+
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Allows for a single version to be declared in parent pom -->
+                <!-- Version: Plugin Management -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <!-- Allows for a single version to be declared in parent pom -->
+                <!-- Version: Explicit -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+</project>

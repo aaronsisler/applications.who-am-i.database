@@ -2,7 +2,7 @@
 
 ## Local Development
 
-- Need to run the database initilization script
+- Need to run the database initialization script
 
 ```bash
 psql -d postgres -f init.sql
