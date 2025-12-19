@@ -5,39 +5,20 @@
 
     <groupId>com.ebsolutions.applications.whoami</groupId>
     <artifactId>who-am-i-database</artifactId>
-    <version>${revision}</version>
+    <version>0.1.0</version>
     <name>Who Am I Database</name>
     <packaging>jar</packaging>
 
     <properties>
-        <revision>0.1.0</revision>
-
-        <!-- Versions: Plugins -->
-        <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
 
     </properties>
 
     <build>
-        <plugins>
-            <plugin>
-                <!-- Allows for a single version to be declared in parent pom -->
-                <!-- Version: Plugin Management -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <!-- Allows for a single version to be declared in parent pom -->
-                <!-- Version: Explicit -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>flatten-maven-plugin</artifactId>
-                    <version>${flatten-maven-plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 
     <scm>

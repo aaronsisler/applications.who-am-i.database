@@ -1,5 +1,12 @@
--- roles/role_creation.sql
--- Always use fixed password 'CHANGE_ME', no variable
+-- Description: Drops a role if it exists and
+-- creates it with a fixed password.
+-- Always uses fixed password 'CHANGE_ME'
+
+-- Usage: \set role_name 'desired_role_name'
+-- Then execute this script.
+-- Example:
+-- \set role_name 'auth_app_user'
+-- \i path/to/this/script.sql
 
 -- Drop role if it exists
 SELECT 'DROP ROLE IF EXISTS ' || quote_ident(:role_name) || ';'
