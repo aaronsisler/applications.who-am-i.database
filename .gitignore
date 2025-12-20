@@ -1,3 +1,7 @@
-/.idea
-.DS_Store
+# Ignore build artifacts and IDE files
+.idea/
+build/
 target/
+
+# Individual files
+.DS_Store

@@ -13,6 +13,22 @@
 
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>1.21.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>11.19.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <resources>
             <resource>
