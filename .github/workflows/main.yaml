@@ -23,7 +23,8 @@ jobs:
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout --no-transfer-progress --batch-mode
 
       - name: Increment Version
-        run: mvn build-helper:parse-version versions:set \
+        run: |
+          mvn build-helper:parse-version versions:set \
           -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.\${parsedVersion.incrementalVersion} \
           -DgenerateBackupPoms=false \
           --no-transfer-progress --batch-mode
