@@ -19,16 +19,20 @@ jobs:
           distribution: "corretto"
           cache: "maven"
 
+      - name: Current Version
+        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout --no-transfer-progress --batch-mode
+
       - name: Increment Version
-        run: |
-          echo "Current Version:"
-          mvn help:evaluate -Dexpression=project.version -q -DforceStdout
-          mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.\${parsedVersion.incrementalVersion} -DgenerateBackupPoms=false
-          echo "New Version:"
-          mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+        run: mvn build-helper:parse-version versions:set \
+          -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.\${parsedVersion.incrementalVersion} \
+          -DgenerateBackupPoms=false \
+          --no-transfer-progress --batch-mode
+
+      - name: New Version
+        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout --no-transfer-progress --batch-mode
 
       - name: Build with Maven
-        run: mvn clean verify --no-transfer-progress --batch-mode
+        run: mvn clean verify --no-transfer-progress --batch-mode --no-transfer-progress --batch-mode
 
       - name: Publish Artifact
         run: mvn deploy --no-transfer-progress --batch-mode
