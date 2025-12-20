@@ -31,7 +31,9 @@ jobs:
         run: mvn clean verify --no-transfer-progress --batch-mode
 
       - name: Publish Artifact
-        run: echo "Publishing artifact..."
+        run: mvn deploy --no-transfer-progress --batch-mode
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit Version Bump
         run: |
