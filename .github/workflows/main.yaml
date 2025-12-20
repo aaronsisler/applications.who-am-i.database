@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "Current Version:"
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout
-          mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\$((\${parsedVersion.nextMinorVersion})).\${parsedVersion.incrementalVersion} -DgenerateBackupPoms=false
+          mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.\${parsedVersion.incrementalVersion} -DgenerateBackupPoms=false
           echo "New Version:"
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout
 
