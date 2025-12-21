@@ -12,6 +12,10 @@
     <properties>
         <!-- This value will be overridden by the injected value in CI -->
         <revision>0.0.0-SNAPSHOT</revision>
+
+        <!-- Versions: Plugins -->
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+
     </properties>
     <build>
         <resources>
@@ -27,7 +31,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-resources-plugin.version}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
