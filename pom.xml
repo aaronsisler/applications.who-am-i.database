@@ -5,16 +5,38 @@
 
     <groupId>com.ebsolutions.applications.whoami</groupId>
     <artifactId>who-am-i-database</artifactId>
-    <version>0.1.0</version>
+    <version>${revision}</version>
     <name>Who Am I Database</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <!-- This value will be overridden by the injected value in CI -->
+        <revision>0.0.0-SNAPSHOT</revision>
+
+        <!-- Versions: Plugins -->
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+
+    </properties>
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <distributionManagement>
