@@ -1,16 +1,23 @@
-name: Pull Request
+name: Publish & Tag Release
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  Build-And-Publish-Artifact:
-    name: Build & Publish Artifact
+  Publish-and-Tag-Release:
+    name: Publish & Tag Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    concurrency:
+      group: release-main
+      cancel-in-progress: false
+
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 21 for x64
         uses: actions/setup-java@v4
@@ -19,33 +26,22 @@ jobs:
           distribution: "corretto"
           cache: "maven"
 
-      - name: Current Version
-        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout --no-transfer-progress --batch-mode
-
-      - name: Increment Version
+      - name: Determine next version
+        id: version
         run: |
-          mvn build-helper:parse-version versions:set \
-          -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.\${parsedVersion.incrementalVersion} \
-          -DgenerateBackupPoms=false \
+          LAST=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.0")
+          LAST=${LAST#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$LAST"
+          NEXT="$MAJOR.$MINOR.$((PATCH + 1))"
+          echo "revision=$NEXT" >> $GITHUB_OUTPUT
+
+      - name: Build & publish
+        run: |
+          mvn clean deploy \
+          -Drevision=${{ steps.version.outputs.revision }} \
           --no-transfer-progress --batch-mode
 
-      - name: New Version
-        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout --no-transfer-progress --batch-mode
-
-      - name: Build with Maven
-        run: mvn clean verify --no-transfer-progress --batch-mode --no-transfer-progress --batch-mode
-
-      - name: Publish Artifact
-        run: mvn deploy --no-transfer-progress --batch-mode
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit Version Bump
+      - name: Tag release
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add pom.xml
-          git commit -m "Bump version to $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" || echo "No changes to commit"
-          git push origin HEAD:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git tag v${{ steps.version.outputs.revision }}
+          git push origin v${{ steps.version.outputs.revision }}
