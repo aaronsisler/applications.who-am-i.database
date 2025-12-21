@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
 
     concurrency:
       group: release-main
@@ -39,6 +40,8 @@ jobs:
         run: |
           mvn clean deploy \
           -Drevision=${{ steps.version.outputs.revision }} \
+          -Dusername=${GITHUB_ACTOR} \
+          -Dpassword=${GITHUB_TOKEN} \
           --no-transfer-progress --batch-mode
 
       - name: Tag release
