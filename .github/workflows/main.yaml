@@ -40,11 +40,13 @@ jobs:
         run: |
           mvn clean deploy \
           -Drevision=${{ steps.version.outputs.revision }} \
-          -Dusername=${GITHUB_ACTOR} \
-          -Dpassword=${GITHUB_TOKEN} \
           --no-transfer-progress --batch-mode
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag release
         run: |
           git tag v${{ steps.version.outputs.revision }}
           git push origin v${{ steps.version.outputs.revision }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
