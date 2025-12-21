@@ -1,9 +1,5 @@
 # applications.who-am-i.database
 
-## Local Development
+## Overview
 
-- Need to run the database initialization script
-
-```bash
-psql -d postgres -f init.sql
-```
+## Process to create a new releasable artifact
