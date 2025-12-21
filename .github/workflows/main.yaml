@@ -33,7 +33,7 @@ jobs:
           LAST=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.0")
           LAST=${LAST#v}
           IFS='.' read -r MAJOR MINOR PATCH <<< "$LAST"
-          NEXT="$MAJOR.$MINOR.$((PATCH + 1))"
+          NEXT="$MAJOR.$((MINOR + 1)).$PATCH"
           echo "revision=$NEXT" >> $GITHUB_OUTPUT
 
       - name: Build & publish
