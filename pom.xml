@@ -5,10 +5,14 @@
 
     <groupId>com.ebsolutions.applications.whoami</groupId>
     <artifactId>who-am-i-database</artifactId>
-    <version>0.1.0</version>
+    <version>${revision}</version>
     <name>Who Am I Database</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <!-- This value will be overridden by the injected value in CI -->
+        <revision>0.0.0-SNAPSHOT</revision>
+    </properties>
     <build>
         <resources>
             <resource>
