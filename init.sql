@@ -26,15 +26,15 @@ DROP DATABASE IF EXISTS :db_name;
 
 -- Role used only to (re)create the database — local dev convenience only
 \set role_name :'db_creator'
-\i roles/role_creation.sql
+\i   src/main/resources/db/ddl/roles/drop_and_create_role.sql
 
 -- Your IDE/schema owner role
 \set role_name :'ide_user'
-\i roles/role_creation.sql
+\i src/main/resources/db/ddl/roles/drop_and_create_role.sql
 
 -- The application role (lowest privilege)
 \set role_name :'app_user'
-\i roles/role_creation.sql
+\i src/main/resources/db/ddl/roles/drop_and_create_role.sql
 
 -- Make the db_creator a member of ide_user so it can SET ROLE
 GRANT :ide_user TO :db_creator;
@@ -43,12 +43,12 @@ GRANT :ide_user TO :db_creator;
 -- 3. Create the database
 -- ======================================================
 
-CREATE DATABASE :dbname OWNER :db_creator;
+CREATE DATABASE :db_name OWNER :db_creator;
 
 -- ======================================================
 -- 4. Connect as the DB creation user
 -- ======================================================
-\c :dbname :db_creator
+\c :db_name :db_creator
 
 -- ======================================================
 -- 5. Install required extensions
@@ -60,7 +60,7 @@ CREATE DATABASE :dbname OWNER :db_creator;
 -- 6. Create the schema (which will be owned by IDE user)
 -- ======================================================
 
-\i schemas/10_auth_schema.sql
+\i src/main/resources/db/ddl/schemas/10_auth_schema.sql
 
 -- Hand off schema ownership so the IDE user manages DDL
 ALTER SCHEMA auth OWNER TO :ide_user;
@@ -70,7 +70,7 @@ ALTER SCHEMA auth OWNER TO :ide_user;
 -- ======================================================
 SET ROLE :ide_user;
 
-\i tables/10_app_user.sql;
+\i src/main/resources/db/ddl/tables/10_app_user_table.sql;
 
 RESET ROLE;
 
@@ -79,6 +79,6 @@ RESET ROLE;
 -- ======================================================
 SET ROLE :ide_user;
 
-\i grants/10_auth_app_user_grants.sql;
+\i src/main/resources/db/ddl/grants/10_app_user_grants.sql;
 
 RESET ROLE;
